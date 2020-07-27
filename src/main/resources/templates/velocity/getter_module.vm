@@ -1,0 +1,44 @@
+     H NOMAIN
+     FCONFFILE  IF   E           K DISK    UsrOpn ExtFile(*ExtDesc)
+     F                                     ExtDesc('${ds.fileName}')
+     F                                     Rename(${ds.recordName}:CONFREC)
+
+     D/COPY QRPGLESRC,${ds.fileName}P
+
+     D dsRec           DS                  LikeRec(CONFREC:*INPUT) Template
+     D dsKey           DS                  LikeRec(CONFREC:*KEY) Template
+
+     //=======================================================================
+     P OpenF_          B
+      /free
+            If not %Open(CONFFILE);
+              Open CONFFILE;
+            EndIF;
+     P                 E
+      //=======================================================================
+     P CloseF_         B
+      /free
+           If %Open(CONFFILE);
+             Close CONFFILE;
+           EndIF;
+     P                 E
+      //=======================================================================
+     P find_${ds.fileName}M...
+     P                 B                   Export
+     D                 PI              N
+     D  inKey                              Const Like(dsKey)
+      /free
+            openF_();
+            chain inKey CONFREC dsRec;
+            return %found();
+     P                 E
+
+#foreach ($f in $ds.fields)
+      //=======================================================================
+     P get_${f.name}_${ds.fileName}M...
+     P                 B                   Export
+     D                 PI                  Like(dsRec.${f.name})
+      /free
+            return dsRec.${f.name};
+     P                 E
+#end

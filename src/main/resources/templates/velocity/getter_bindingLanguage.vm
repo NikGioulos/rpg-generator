@@ -1,0 +1,6 @@
+STRPGMEXP PGMLVL(*CURRENT) LVLCHK(*NO)
+  EXPORT SYMBOL(find_${ds.fileName}M)
+#foreach ($f in $ds.fields)
+  EXPORT SYMBOL(get_${f.name}_${ds.fileName}M)
+#end
+ENDPGMEXP

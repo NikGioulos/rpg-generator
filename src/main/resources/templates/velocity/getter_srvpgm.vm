@@ -1,0 +1,4 @@
+CRTSRVPGM SRVPGM(&LIB/${ds.fileName}S)              +
+MODULE(${ds.fileName}M)                             +
+SRCFILE(*LIBL/QRPGLESRC) SRCMBR(${ds.fileName}BND)  +
+DETAIL(*FULL) ALWLIBUPD(*YES) AUT(*ALL)

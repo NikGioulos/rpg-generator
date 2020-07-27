@@ -1,0 +1,14 @@
+     D ${ds.fileName}_t...
+     D               E DS                  Extname(${ds.fileName}) Qualified Template
+     D key${ds.fileName}_t...
+     D               E DS                  Extname(${ds.fileName}:*KEY)
+     D                                     Qualified Template
+
+     D find_${ds.fileName}M...
+     D                 Pr              N
+     D  inKey                              Const LikeDS(key${ds.fileName}_t)
+
+#foreach ($f in $ds.fields)
+     D get_${f.name}_${ds.fileName}M...
+     D                 Pr                  Like(${ds.fileName}_t.${f.name})
+#end
