@@ -11,8 +11,8 @@
 
       /free
             dsKey.myField1 = '123';
-            if find_${ds.fileName}M(dsKey);
-              wSampleField = get_myfield2_${ds.fileName}M();
+            if find_${ds.fileName}(dsKey);
+              wSampleField = get_myfield2_${ds.fileName}();
             endif;
             dsply wSampleField;
 

@@ -23,7 +23,7 @@
            EndIF;
      P                 E
       //=======================================================================
-     P find_${ds.fileName}M...
+     P find_${ds.fileName}...
      P                 B                   Export
      D                 PI              N
      D  inKey                              Const LikeDS(dsKey_t)
@@ -35,7 +35,7 @@
 
 #foreach ($f in $ds.fields)
       //=======================================================================
-     P get_${f.name}_${ds.fileName}M...
+     P get_${f.name}_${ds.fileName}...
      P                 B                   Export
      D                 PI                  Like(dsRec.${f.name})
       /free
