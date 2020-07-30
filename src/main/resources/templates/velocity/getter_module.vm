@@ -6,7 +6,7 @@
      D/COPY QRPGLESRC,${ds.fileName}P
 
      D dsRec           DS                  LikeRec(CONFREC:*INPUT)
-     D dsKey           DS                  LikeRec(CONFREC:*KEY) Template
+     D dsKey_t          DS                  LikeRec(CONFREC:*KEY) Template
 
       //=======================================================================
      P OpenF_          B
@@ -26,7 +26,7 @@
      P find_${ds.fileName}M...
      P                 B                   Export
      D                 PI              N
-     D  inKey                              Const LikeDS(dsKey)
+     D  inKey                              Const LikeDS(dsKey_t)
       /free
             openF_();
             chain inKey CONFREC dsRec;
