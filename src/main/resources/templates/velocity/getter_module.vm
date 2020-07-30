@@ -6,7 +6,8 @@
      D/COPY QRPGLESRC,${ds.fileName}P
 
      D dsRec           DS                  LikeRec(CONFREC:*INPUT)
-     D dsKey_t          DS                  LikeRec(CONFREC:*KEY) Template
+     D dsKey_t         DS                  LikeRec(CONFREC:*KEY) Template
+     D svKey           DS                  LikeRec(CONFREC:*KEY) inz
 
       //=======================================================================
      P OpenF_          B
@@ -21,6 +22,7 @@
            If %Open(CONFFILE);
              Close CONFFILE;
            EndIF;
+           clear svKey;
      P                 E
       //=======================================================================
      P find_${ds.fileName}...
@@ -28,8 +30,18 @@
      D                 PI              N
      D  inKey                              Const LikeDS(dsKey_t)
       /free
+            if inKey = svKey and svKey <> '';
+              return '1'; // cached record will be used
+            endif;
+
             openF_();
             chain inKey CONFREC dsRec;
+            if not %found();
+              clear dsRec;
+              clear svRec;
+            else;
+              svKey = inKey;//cache the record
+            endif;
             return %found();
      P                 E
 
